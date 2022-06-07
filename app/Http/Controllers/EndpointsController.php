@@ -19,5 +19,9 @@ class EndpointsController extends Controller
         return Redis::get('routes');
     }
 
+    public function objects() {
+        return Redis::get('objects');
+    }
+
 }
 

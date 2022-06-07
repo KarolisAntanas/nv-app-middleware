@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Redis;
 class ApiController extends Controller
 {
     public array $routes = [];
+    public array $objects = [];
     public array $routesIds = [];
 
     public function __construct()
     {
        $this->getAllRoutes();
-       $this->extractRoutesIds();
+        $this->getAllObjects();
+        $this->extractRoutesIds();
     }
 
     public function getAllRoutes() {
@@ -23,6 +25,15 @@ class ApiController extends Controller
         if($routes) {
             $this->routes = json_decode($routes);
             Redis::set('routes', $routes);
+        }
+    }
+
+    public function getAllObjects() {
+        $objects = Http::get(config('api.api_url') . 'objects')->body();
+
+        if($objects) {
+            $this->objects = json_decode($objects);
+            Redis::set('objects', $objects);
         }
     }
 
