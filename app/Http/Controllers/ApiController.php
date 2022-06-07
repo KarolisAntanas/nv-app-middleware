@@ -17,24 +17,25 @@ class ApiController extends Controller
        $this->getAllRoutes();
         $this->getAllObjects();
         $this->extractRoutesIds();
+        $this->getFullRouteData();
+
     }
 
     public function getAllRoutes() {
-        $routes = Http::get(config('api.api_url') . 'routes')->body();
+        $routes = Http::get(config('api.api_url') . 'routes');
 
-        if($routes) {
-            $this->routes = json_decode($routes);
-            ray( $this->routes);
-            Redis::set('routes', $routes);
+        if($routes->body()) {
+            $this->routes = json_decode($routes->body());
+            Redis::set('routes', $routes->body());
         }
     }
 
     public function getAllObjects() {
-        $objects = Http::get(config('api.api_url') . 'objects')->body();
+        $objects = Http::get(config('api.api_url') . 'objects');
 
-        if($objects) {
-            $this->objects = json_decode($objects);
-            Redis::set('objects',  $objects);
+        if($objects->body()) {
+            $this->objects = json_decode($objects->body());
+            Redis::set('objects',  $objects->body());
         }
     }
 
@@ -47,7 +48,27 @@ class ApiController extends Controller
             return $route->routeID;
         }, $this->routes);
 
+
     }
+
+    public function getFullRouteData() {
+        if(empty($this->routesIds)) {
+            return;
+        }
+
+        foreach($this->routesIds as $id) {
+            $route = Http::get(config('api.api_url') . 'route/' . $id);
+
+            $route = $route->body() ?? null;
+
+            if($route) {
+                Redis::set('route:' . $id, $route);
+            }
+
+        }
+
+    }
+
 
 
 }

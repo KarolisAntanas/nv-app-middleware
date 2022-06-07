@@ -20,5 +20,6 @@ use \App\Http\Controllers\EndpointsController;
 //});
 
 Route::get('/routes', [EndpointsController::class, 'routes']);
+Route::get('/route/{routeId}', [EndpointsController::class, 'route']);
 Route::get('/objects', [EndpointsController::class, 'objects']);
 Route::get('/api', [EndpointsController::class, 'api']);
