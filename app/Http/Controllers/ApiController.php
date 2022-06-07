@@ -24,6 +24,7 @@ class ApiController extends Controller
 
         if($routes) {
             $this->routes = json_decode($routes);
+            ray( $this->routes);
             Redis::set('routes', $routes);
         }
     }
@@ -33,7 +34,7 @@ class ApiController extends Controller
 
         if($objects) {
             $this->objects = json_decode($objects);
-            Redis::set('objects', $objects);
+            Redis::set('objects',  $objects);
         }
     }
 

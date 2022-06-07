@@ -16,11 +16,11 @@ class EndpointsController extends Controller
     }
 
     public function routes() {
-        return Redis::get('routes');
+        return json_decode(Redis::get('routes'));
     }
 
     public function objects() {
-        return Redis::get('objects');
+        return json_decode(Redis::get('objects'));
     }
 
 }
