@@ -212,4 +212,8 @@ return [
         'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 
+
+    'api_url' => env('API_URL', 'https://neakivaizdinisvilnius.lt/wp-json/app/v2/')
+
+
 ];

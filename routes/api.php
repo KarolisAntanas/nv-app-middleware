@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\ApiController;
+use \App\Http\Controllers\EndpointsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +15,9 @@ use \App\Http\Controllers\ApiController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
-Route::get('/routes', [ApiController::class, 'index']);
+Route::get('/routes', [EndpointsController::class, 'routes']);
+Route::get('/api', [EndpointsController::class, 'api']);

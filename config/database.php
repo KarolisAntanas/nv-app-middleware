@@ -125,7 +125,6 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'nv-api'), '_').'_database_'),
         ],
 
         'default' => [
