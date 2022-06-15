@@ -9,10 +9,10 @@ use JsonException;
 
 class WpService
 {
-    public function getRoutes(): string
+    public function get(string $resource): string
     {
         $responseData = Http::acceptJson()
-            ->get(config('api.api_url') . 'routes')
+            ->get(config('api.api_url') . $resource)
             ->json();
 
         if (!$responseData) {
