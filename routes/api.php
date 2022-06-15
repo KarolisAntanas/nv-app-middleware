@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\EndpointsController;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\EndpointsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +19,6 @@ use \App\Http\Controllers\EndpointsController;
 //});
 
 Route::get('/routes', [EndpointsController::class, 'routes']);
-Route::get('/route/{routeId}', [EndpointsController::class, 'route']);
+Route::get('/routes/{routeId}', [EndpointsController::class, 'route']);
 Route::get('/objects', [EndpointsController::class, 'objects']);
 Route::get('/api', [EndpointsController::class, 'api']);
