@@ -14,9 +14,9 @@ trait ResourceIndexTrait
             );
         }
 
-        $routes = $this->wpService->get($this->resource);
+        $resource = $this->wpService->get($this->resource);
 
-        if ($routes) {
+        if ($resource) {
             $this->cacheService->set(
                 $this->resource,
                 $this->wpService->get($this->resource),

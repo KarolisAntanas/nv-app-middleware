@@ -10,14 +10,11 @@ use App\Traits\ResourceIndexTrait;
 use App\Traits\ResourceShowTrait;
 use Illuminate\Http\JsonResponse;
 
-class ObjectController extends Controller
+class TextPagesController extends Controller
 {
     use ResourceIndexTrait;
-    use ResourceShowTrait;
 
-
-    protected string $resource = 'objects';
-    protected string $resourceSingular = 'object';
+    protected string $resource = 'text-pages';
 
 
     public function __construct(
@@ -26,4 +23,6 @@ class ObjectController extends Controller
     )
     {
     }
+
 }
+

@@ -7,17 +7,13 @@ namespace App\Http\Controllers;
 use App\Services\CacheService;
 use App\Services\WpService;
 use App\Traits\ResourceIndexTrait;
-use App\Traits\ResourceShowTrait;
 use Illuminate\Http\JsonResponse;
 
-class ObjectController extends Controller
+class RoutesCategoriesController extends Controller
 {
     use ResourceIndexTrait;
-    use ResourceShowTrait;
 
-
-    protected string $resource = 'objects';
-    protected string $resourceSingular = 'object';
+    protected string $resource = 'route-categories';
 
 
     public function __construct(
@@ -26,4 +22,6 @@ class ObjectController extends Controller
     )
     {
     }
+
 }
+

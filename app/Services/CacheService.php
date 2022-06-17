@@ -11,6 +11,9 @@ class CacheService
 {
     public function get(string $key): array
     {
+
+
+
         $cacheData = Redis::get($key);
 
         if (!$cacheData) {

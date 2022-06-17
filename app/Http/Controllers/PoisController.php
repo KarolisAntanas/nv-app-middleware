@@ -10,14 +10,13 @@ use App\Traits\ResourceIndexTrait;
 use App\Traits\ResourceShowTrait;
 use Illuminate\Http\JsonResponse;
 
-class ObjectController extends Controller
+class PoisController extends Controller
 {
     use ResourceIndexTrait;
     use ResourceShowTrait;
 
-
-    protected string $resource = 'objects';
-    protected string $resourceSingular = 'object';
+    protected string $resource = 'pois';
+    protected string $resourceSingular = 'poi';
 
 
     public function __construct(
@@ -26,4 +25,6 @@ class ObjectController extends Controller
     )
     {
     }
+
 }
+
