@@ -7,8 +7,6 @@ namespace App\Http\Controllers;
 use App\Services\CacheService;
 use App\Services\WpService;
 use App\Traits\ResourceIndexTrait;
-use App\Traits\ResourceShowTrait;
-use Illuminate\Http\JsonResponse;
 
 class AboutController extends Controller
 {
