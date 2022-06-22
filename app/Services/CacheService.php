@@ -13,13 +13,11 @@ class CacheService
     {
 
 
-
         $cacheData = Redis::get($key);
 
         if (!$cacheData) {
             return [];
         }
-
         try {
             $data = json_decode($cacheData, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
@@ -40,6 +38,6 @@ class CacheService
 
     public function exists(string $key): bool
     {
-        return (bool) Redis::exists($key);
+        return (bool)Redis::exists($key);
     }
 }

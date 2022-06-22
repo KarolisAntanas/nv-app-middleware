@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Console\Commands\FetchData;
-use App\Services\DataFetchService;
+use App\Console\Commands\UpdateData;
 
 class FetchController extends Controller
 {
     public function index(): void
     {
-        (new FetchData())->handle();
+        // Should trigger UpdateData
     }
 }
