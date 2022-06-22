@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FetchController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\FrontPoiCategoriesController;
 use App\Http\Controllers\LastModifiedController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\PoisController;
 use App\Http\Controllers\TextPagesController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/fetch', [FetchController::class, 'index']);
 
 Route::get('/routes', [RoutesController::class, 'index']);
 Route::get('/route/{routeId}', [RoutesController::class, 'show']);
