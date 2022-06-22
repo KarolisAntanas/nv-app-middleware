@@ -77,7 +77,11 @@ class UpdateData extends Command
             foreach ($data as $record) {
 
                 $record = (array)json_decode($record);
-                $recordID = array_values($record)[0];
+                $recordID = array_values($record)[0] ?? null;
+
+                if (empty($recordID)) {
+                    return;
+                }
 
                 $this->newLine();
                 $this->info("saving {$type} record with id of {$recordID}");
