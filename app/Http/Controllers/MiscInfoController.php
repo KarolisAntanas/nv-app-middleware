@@ -22,6 +22,7 @@ class MiscInfoController extends Controller
         private WpService    $wpService,
     )
     {
+
     }
 
 }

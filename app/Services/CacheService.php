@@ -12,28 +12,25 @@ class CacheService
     public function get(string $key): array
     {
 
-
         $cacheData = Redis::get($key);
 
         if (!$cacheData) {
             return [];
         }
-        try {
-            $data = json_decode($cacheData, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException $e) {
-            // galima pranesti apie nesegminga bandyma dekoduoti JSON
-            // tai gali reiksti kad cache duomenys yra neteisingi
-            // galima uzloginti klaida su Log::error($e->getMessage());
-            // galima siusti i koki nors servisa kuris klaidas gaudo, pvz Sentry
-            return [];
-        }
 
-        return $data;
+        return json_decode($cacheData, true);
     }
 
-    public function set(string $key, string $value): void
+
+    public function set(string $key, string $value): string
     {
-        Redis::set($key, $value);
+        if ($value) {
+            Redis::set($key, $value);
+            return "{$key} saved successfully";
+        }
+
+        return "unexpected {$key} data - not saved";
+
     }
 
     public function exists(string $key): bool

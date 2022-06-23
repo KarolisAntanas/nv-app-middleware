@@ -17,10 +17,10 @@ class WpService
     private array $fetchedLists = [];
     private array $fetchedCategories = [];
     private array $fetchedPages = [];
-    private array $fetchedSingleRecords = [];
+    private array $singleRecordsIDs = [];
 
 
-    public function getSingleRecords(): array
+    public function getSingleRecordsIDs(): array
     {
         if (empty($this->fetchedLists)) {
             $this->getLists();
@@ -30,16 +30,16 @@ class WpService
 
             $listTitleSingular = Str::singular($list);
 
-            $this->fetchedSingleRecords[$listTitleSingular] = array_map(function ($item) use ($listTitleSingular) {
+            $this->singleRecordsIDs[$listTitleSingular] = array_map(function ($item) use ($listTitleSingular) {
 
                 $itemArr = array_values((array)$item);
-                return $this->get("{$listTitleSingular}/{$itemArr[0]}");
+                return $itemArr[0] ?? null;
 
             }, json_decode($data));
 
         }
 
-        return $this->fetchedSingleRecords;
+        return $this->singleRecordsIDs;
 
     }
 
@@ -66,21 +66,29 @@ class WpService
             ->get(config('api.api_url') . $resource)
             ->json();
 
-        if (!$responseData) {
+        if (!$this->isValid($responseData)) {
             return '';
         }
 
-        try {
-            $data = json_encode($responseData, JSON_THROW_ON_ERROR);
-        } catch (JsonException $e) {
-            // galima pranesti apie nesegminga bandyma dekoduoti JSON
-            // tai gali reiksti kad WP servisas neveikia
-            // galima uzloginti klaida su Log::error($e->getMessage());
-            // galima siusti i koki nors servisa kuris klaidas gaudo, pvz Sentry
-            return '';
+        return json_encode($responseData);
+    }
+
+    private function isValid($data): bool
+    {
+
+        if (!is_array($data)) {
+            return false;
         }
 
-        return $data;
+        if (empty($data)) {
+            return false;
+        }
+
+        if (!empty($data['code'])) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getCategories(): array

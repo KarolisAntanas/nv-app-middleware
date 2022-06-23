@@ -36,6 +36,7 @@ class UpdateData extends Command
         $this->wpService = new WpService();
         $this->cacheService = new CacheService();
 
+
         $this->info("Data update started");
         $this->newLine();
 
@@ -44,6 +45,9 @@ class UpdateData extends Command
 
         $this->updateCategories();
         $this->updatePages();
+
+        $this->newLine();
+        $this->info("Data update finished");
 
     }
 
@@ -57,9 +61,8 @@ class UpdateData extends Command
         foreach ($lists as $list => $data) {
 
             $this->newLine();
-            $this->info("saving {$list}");
+            $this->info($this->cacheService->set($list, $data));
 
-            $this->cacheService->set($list, $data);
         }
 
     }
@@ -70,32 +73,26 @@ class UpdateData extends Command
         $this->newLine();
         $this->info("fetching single records");
 
-        $singleRecords = $this->wpService->getSingleRecords();
+        $singleRecordsIDs = $this->wpService->getSingleRecordsIDs();
 
-        foreach ($singleRecords as $type => $data) {
+        foreach ($singleRecordsIDs as $type => $IDs) {
 
-            foreach ($data as $record) {
+            foreach ($IDs as $ID) {
 
-                $record = (array)json_decode($record);
-                $recordID = array_values($record)[0] ?? null;
-
-                if (empty($recordID)) {
-                    return;
-                }
+                $record = $this->wpService->get("{$type}/{$ID}");
 
                 $this->newLine();
-                $this->info("saving {$type} record with id of {$recordID}");
+                $this->info($this->cacheService->set("{$type}:{$ID}", $record));
 
-                $this->cacheService->set("{$type}:{$recordID}", json_encode($record));
 
             }
-
 
         }
 
     }
 
-    private function updateCategories(): void
+    private
+    function updateCategories(): void
     {
         $this->newLine();
         $this->info("fetching categories");
@@ -105,14 +102,14 @@ class UpdateData extends Command
         foreach ($categories as $category => $data) {
 
             $this->newLine();
-            $this->info("saving {$category}");
+            $this->info($this->cacheService->set($category, $data));
 
-            $this->cacheService->set($category, $data);
         }
 
     }
 
-    private function updatePages(): void
+    private
+    function updatePages(): void
     {
         $this->newLine();
         $this->info("fetching pages");
@@ -122,9 +119,8 @@ class UpdateData extends Command
         foreach ($pages as $page => $data) {
 
             $this->newLine();
-            $this->info("saving {$page}");
+            $this->info($this->cacheService->set($page, $data));
 
-            $this->cacheService->set($page, $data);
         }
 
     }
