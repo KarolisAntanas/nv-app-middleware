@@ -39,12 +39,12 @@ class UpdateData extends Command
 
         $this->info("Data update started");
         $this->newLine();
+        $this->updatePages();
 
         $this->updateLists();
         $this->updateSingleRecords();
 
         $this->updateCategories();
-        $this->updatePages();
 
         $this->newLine();
         $this->info("Data update finished");
