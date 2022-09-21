@@ -28,6 +28,10 @@ class WpService
 
         foreach ($this->fetchedLists as $list => $data) {
 
+            if(!$decodedData = json_decode($data)) {
+                continue;
+            }
+
             $listTitleSingular = Str::singular($list);
 
             $this->singleRecordsIDs[$listTitleSingular] = array_map(function ($item) use ($listTitleSingular) {
@@ -35,7 +39,7 @@ class WpService
                 $itemArr = array_values((array)$item);
                 return $itemArr[0] ?? null;
 
-            }, json_decode($data));
+            }, $decodedData);
 
         }
 
