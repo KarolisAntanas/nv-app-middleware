@@ -21,6 +21,11 @@ class FrontPoiCategoriesController extends Controller
         private WpService    $wpService,
     )
     {
+        if(request()->version) {
+            $this->resource = request()->version . "/" . $this->resource;
+        } else {
+            $this->resource = "v2/" . $this->resource;
+        }
     }
 
 }
