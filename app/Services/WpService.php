@@ -75,6 +75,7 @@ class WpService
         }
 
         $responseData = Http::acceptJson()
+            ->timeout(60)
             ->get($url)
             ->json();
 

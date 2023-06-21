@@ -8,9 +8,6 @@ trait ResourceShowTrait
 {
     public function show(string $version, string $singleResourceId): JsonResponse
     {
-
-        ray($singleResourceId);
-
         $cacheKey = "{$this->resourceSingular}:{$singleResourceId}";
 
         if ($this->cacheService->exists($cacheKey)) {
