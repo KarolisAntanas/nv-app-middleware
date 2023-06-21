@@ -25,8 +25,10 @@ class RoutesController extends Controller
     ) {
         if(request()->version) {
             $this->resource = request()->version . "/" . $this->resource;
+            $this->resourceSingular = request()->version . "/" . $this->resourceSingular;
         } else {
             $this->resource = "v2/" . $this->resource;
+            $this->resourceSingular = "v2/" . $this->resourceSingular;
         }
     }
 
