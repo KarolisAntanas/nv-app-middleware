@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FetchController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\FrontPoiCategoriesController;
@@ -28,7 +29,7 @@ Route::get('/front-poi-categories', [FrontPoiCategoriesController::class, 'index
 Route::get('/route-categories', [RoutesCategoriesController::class, 'index']);
 Route::get('/poi-categories', [PoiCategoriesController::class, 'index']);
 
-Route::get('/about', [PoiCategoriesController::class, 'index']);
+Route::get('/about', [AboutController::class, 'index']);
 Route::get('/text-pages', [TextPagesController::class, 'index']);
 Route::get('/contacts', [ContactsController::class, 'index']);
 Route::get('/misc-info', [MiscInfoController::class, 'index']);
@@ -52,7 +53,7 @@ Route::prefix('{version}')->group(static function (): void{
     Route::get('/route-categories', [RoutesCategoriesController::class, 'index']);
     Route::get('/poi-categories', [PoiCategoriesController::class, 'index']);
 
-    Route::get('/about', [PoiCategoriesController::class, 'index']);
+    Route::get('/about', [AboutController::class, 'index']);
     Route::get('/text-pages', [TextPagesController::class, 'index']);
     Route::get('/contacts', [ContactsController::class, 'index']);
     Route::get('/misc-info', [MiscInfoController::class, 'index']);

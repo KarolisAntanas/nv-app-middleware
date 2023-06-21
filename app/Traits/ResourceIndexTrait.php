@@ -11,7 +11,6 @@ trait ResourceIndexTrait
 
         ray($this->resource);
 
-
         if ($this->cacheService->exists($this->resource)) {
             return response()->json(
                 $this->cacheService->get($this->resource),
