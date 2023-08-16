@@ -9,8 +9,6 @@ trait ResourceIndexTrait
     public function index(): JsonResponse
     {
 
-        ray($this->resource);
-
         if ($this->cacheService->exists($this->resource)) {
             return response()->json(
                 $this->cacheService->get($this->resource),
