@@ -35,9 +35,6 @@ Route::get('/contacts', [ContactsController::class, 'index']);
 Route::get('/misc-info', [MiscInfoController::class, 'index']);
 Route::get('/last-modified', [LastModifiedController::class, 'index']);
 
-Route::get('test', function() {
-    return \Illuminate\Support\Facades\Redis::get('v2/routes');
-});
 
 Route::prefix('{version}')->group(static function (): void{
     Route::get('/routes', [RoutesController::class, 'index']);
