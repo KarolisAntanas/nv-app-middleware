@@ -41,34 +41,41 @@ class UpdateData extends Command
         $this->newLine();
 
 
-        $this->updateLists();
-        $this->updateSingleRecords();
+        $this->updateLists('v2');
+        $this->updateLists('v3');
+        $this->updateSingleRecords('v2');
+        $this->updateSingleRecords('v3');
 
-        $this->updateCategories();
-        $this->updatePages();
+
+        $this->updateCategories('v2');
+        $this->updateCategories('v3');
+
+        $this->updatePages('v2');
+        $this->updatePages('v3');
+
 
         $this->newLine();
         $this->info("Data update finished");
 
     }
 
-    private function updateLists(): void
+    private function updateLists($version): void
     {
 
         $this->info("fetching lists");
 
-        $lists = $this->wpService->getLists();
+        $lists = $this->wpService->getLists($version);
 
         foreach ($lists as $list => $data) {
 
             $this->newLine();
-            $this->info($this->cacheService->set($list, $data));
+            $this->info($this->cacheService->set($version . '/' . $list, $data));
 
         }
 
     }
 
-    private function updateSingleRecords(): void
+    private function updateSingleRecords($version): void
     {
 
         $this->newLine();
@@ -80,10 +87,10 @@ class UpdateData extends Command
 
             foreach ($IDs as $ID) {
 
-                $record = $this->wpService->get("{$type}/{$ID}");
+                $record = $this->wpService->get("${version}/{$type}/{$ID}");
 
                 $this->newLine();
-                $this->info($this->cacheService->set("{$type}:{$ID}", $record));
+                $this->info($this->cacheService->set("${version}/{$type}:{$ID}", $record));
 
 
             }
@@ -93,34 +100,34 @@ class UpdateData extends Command
     }
 
     private
-    function updateCategories(): void
+    function updateCategories($version): void
     {
         $this->newLine();
         $this->info("fetching categories");
 
-        $categories = $this->wpService->getCategories();
+        $categories = $this->wpService->getCategories($version);
 
         foreach ($categories as $category => $data) {
 
             $this->newLine();
-            $this->info($this->cacheService->set($category, $data));
+            $this->info($this->cacheService->set($version . '/' . $category, $data));
 
         }
 
     }
 
     private
-    function updatePages(): void
+    function updatePages($version): void
     {
         $this->newLine();
         $this->info("fetching pages");
 
-        $pages = $this->wpService->getPages();
+        $pages = $this->wpService->getPages($version);
 
         foreach ($pages as $page => $data) {
 
             $this->newLine();
-            $this->info($this->cacheService->set($page, $data));
+            $this->info($this->cacheService->set($version . '/' . $page, $data));
 
         }
 

@@ -6,9 +6,8 @@ use Illuminate\Http\JsonResponse;
 
 trait ResourceShowTrait
 {
-    public function show(string $singleResourceId): JsonResponse
+    public function show(string $version, string $singleResourceId): JsonResponse
     {
-
         $cacheKey = "{$this->resourceSingular}:{$singleResourceId}";
 
         if ($this->cacheService->exists($cacheKey)) {

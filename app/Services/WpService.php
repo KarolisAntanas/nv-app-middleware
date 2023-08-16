@@ -23,7 +23,9 @@ class WpService
     public function getSingleRecordsIDs(): array
     {
         if (empty($this->fetchedLists)) {
-            $this->getLists();
+            $this->getLists('v2');
+            $this->getLists('v3');
+
         }
 
         foreach ($this->fetchedLists as $list => $data) {
@@ -47,7 +49,7 @@ class WpService
 
     }
 
-    public function getLists(): array
+    public function getLists($version): array
     {
         if (empty($this->lists)) {
             return [];
@@ -55,7 +57,7 @@ class WpService
 
         foreach ($this->lists as $list) {
 
-            $fetchedListData = $this->get($list);
+            $fetchedListData = $this->get($list, $version);
             $this->fetchedLists[$list] = $fetchedListData;
 
         }
@@ -64,10 +66,17 @@ class WpService
 
     }
 
-    public function get(string $resource): string
+    public function get(string $resource, string $version = null): string
     {
+        if($version) {
+            $url = config('api.api_url') . $version . "/" . $resource;
+        } else {
+            $url = config('api.api_url') . $resource;
+        }
+
         $responseData = Http::acceptJson()
-            ->get(config('api.api_url') . $resource)
+            ->timeout(60)
+            ->get($url)
             ->json();
 
         if (!$this->isValid($responseData)) {
@@ -95,7 +104,7 @@ class WpService
         return true;
     }
 
-    public function getCategories(): array
+    public function getCategories($version): array
     {
         if (empty($this->categories)) {
             return [];
@@ -103,7 +112,7 @@ class WpService
 
         foreach ($this->categories as $category) {
 
-            $fetchedCategoryData = $this->get($category);
+            $fetchedCategoryData = $this->get($category, $version);
             $this->fetchedCategories[$category] = $fetchedCategoryData;
 
         }
@@ -111,7 +120,7 @@ class WpService
         return $this->fetchedCategories;
     }
 
-    public function getPages(): array
+    public function getPages($version): array
     {
         if (empty($this->pages)) {
             return [];
@@ -119,7 +128,7 @@ class WpService
 
         foreach ($this->pages as $page) {
 
-            $fetchedPageData = $this->get($page);
+            $fetchedPageData = $this->get($page, $version);
             $this->fetchedPages[$page] = $fetchedPageData;
 
         }

@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'api_url' => env('API_URL', 'https://neakivaizdinisvilnius.lt/wp-json/app/v2/')
+    'api_url' => env('API_URL', 'https://neakivaizdinisvilnius.lt/wp-json/app/')
 ];
