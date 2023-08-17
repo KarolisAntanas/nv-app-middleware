@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/fetch', [FetchController::class, 'index']);
 
 Route::get('/routes', [RoutesController::class, 'index']);
-Route::get('/route/{routeId}', [RoutesController::class, 'show']);
+Route::get('/route/{resourceId}', [RoutesController::class, 'show']);
 
 Route::get('/objects', [ObjectController::class, 'index']);
-Route::get('/object/{objectId}', [ObjectController::class, 'show']);
+Route::get('/object/{resourceId}', [ObjectController::class, 'show']);
 
 Route::get('/pois', [PoisController::class, 'index']);
-Route::get('/poi/{poiId}', [PoisController::class, 'show']);
+Route::get('/poi/{resourceId}', [PoisController::class, 'show']);
 
 Route::get('/front-poi-categories', [FrontPoiCategoriesController::class, 'index']);
 Route::get('/route-categories', [RoutesCategoriesController::class, 'index']);
@@ -38,13 +38,13 @@ Route::get('/last-modified', [LastModifiedController::class, 'index']);
 
 Route::prefix('{version}')->group(static function (): void{
     Route::get('/routes', [RoutesController::class, 'index']);
-    Route::get('/route/{routeId}', [RoutesController::class, 'show']);
+    Route::get('/route/{resourceId}', [RoutesController::class, 'show']);
 
     Route::get('/objects', [ObjectController::class, 'index']);
-    Route::get('/object/{objectId}', [ObjectController::class, 'show']);
+    Route::get('/object/{resourceId}', [ObjectController::class, 'show']);
 
     Route::get('/pois', [PoisController::class, 'index']);
-    Route::get('/poi/{poiId}', [PoisController::class, 'show']);
+    Route::get('/poi/{resourceId}', [PoisController::class, 'show']);
 
     Route::get('/front-poi-categories', [FrontPoiCategoriesController::class, 'index']);
     Route::get('/route-categories', [RoutesCategoriesController::class, 'index']);
