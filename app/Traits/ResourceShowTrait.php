@@ -9,9 +9,9 @@ trait ResourceShowTrait
     public function show(): JsonResponse
     {
 
-        $singleResourceId = request()->route("routeId");
+        $singleResourceId = request()->route("resourceId");
         $cacheKey = "{$this->resourceSingular}:{$singleResourceId}";
-
+        
         if ($this->cacheService->exists($cacheKey)) {
             return response()->json(
                 $this->cacheService->get($cacheKey),
