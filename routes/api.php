@@ -33,7 +33,7 @@ Route::get('/about', [AboutController::class, 'index']);
 Route::get('/text-pages', [TextPagesController::class, 'index']);
 Route::get('/contacts', [ContactsController::class, 'index']);
 Route::get('/misc-info', [MiscInfoController::class, 'index']);
-Route::get('/last-modified', [LastModifiedController::class, 'index']);
+Route::middleware('throttle:versionCheck')->get('/last-modified', [LastModifiedController::class, 'index']);
 
 
 Route::prefix('{version}')->group(static function (): void{
@@ -54,7 +54,7 @@ Route::prefix('{version}')->group(static function (): void{
     Route::get('/text-pages', [TextPagesController::class, 'index']);
     Route::get('/contacts', [ContactsController::class, 'index']);
     Route::get('/misc-info', [MiscInfoController::class, 'index']);
-    Route::get('/last-modified', [LastModifiedController::class, 'index']);
+    Route::middleware('throttle:versionCheck')->get('/last-modified', [LastModifiedController::class, 'index']);
 
 });
 
